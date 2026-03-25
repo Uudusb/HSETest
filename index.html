@@ -894,11 +894,13 @@ async function buildPDF(){
     const W=210,H=297,imgH=(canvas.height/canvas.width)*W;
     let yPos=0;
     while(yPos<imgH){if(yPos>0)doc.addPage();doc.addImage(canvas.toDataURL("image/jpeg",.95),"JPEG",0,-yPos,W,imgH);yPos+=H;}
+    return doc.output("blob");
+  } finally { document.body.removeChild(container); }
+}
 
 // ═══════════════════════════════════════════
 // UTILS
 // ═══════════════════════════════════════════
-}
 
 function downloadPDF(){
   if(S.pdfBlob){
